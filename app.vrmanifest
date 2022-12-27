@@ -1,0 +1,18 @@
+{
+	"source": "builtin",
+	"applications": [
+		{
+			"app_key": "i5ucc.SVRVM",
+			"launch_type": "binary",
+			"binary_path_windows": "./SVRVM.exe",
+			"is_dashboard_overlay": true,
+
+			"strings": {
+				"en_us": {
+					"name": "SVRVM",
+					"description": "Lets you control Virtual Inputs from withing the SteamVR Dashboard."
+				}
+			}
+		}
+	]
+}
