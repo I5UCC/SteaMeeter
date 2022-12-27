@@ -36,9 +36,6 @@ public class SVRVM_Director : MonoBehaviour
     void Start() 
 	{
         Remote.Initialize(RunVoicemeeterParam.VoicemeeterPotato);
-        Debug.Log(DEFAULTXMLPATH);
-        Debug.Log(VRXMLFILEPATH);
-        Debug.Log(MANIFESTLFILEPATH);
         Reset();
     }
 
