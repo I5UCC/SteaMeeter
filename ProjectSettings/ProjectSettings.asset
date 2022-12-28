@@ -174,7 +174,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Standalone: com.i5ucc.svrvm
+    Standalone: com.i5ucc.steameeter
   buildNumber: {}
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 19
@@ -627,14 +627,14 @@ PlayerSettings:
   apiCompatibilityLevelPerPlatform: {}
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: SVRVM
+  metroPackageName: Steameeter
   metroPackageVersion: 
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
   metroCertificateIssuer: 
   metroCertificateNotAfter: 0000000000000000
-  metroApplicationDescription: SVRVM
+  metroApplicationDescription: Steameeter
   wsaImages: {}
   metroTileShortName: 
   metroTileShowName: 0
@@ -701,7 +701,7 @@ PlayerSettings:
   apiCompatibilityLevel: 3
   cloudProjectId: fb82fe25-0d8f-4df9-b852-ce725e8ddd89
   framebufferDepthMemorylessMode: 0
-  projectName: SVRVM
+  projectName: Steameeter
   organizationId: I5UCC
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
