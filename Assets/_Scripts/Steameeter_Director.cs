@@ -21,21 +21,21 @@ public class Steameeter_Director : MonoBehaviour
 
 	[Space(10)]
 
-	public Slider sliderVAIO = null;
-    public Slider sliderAUX = null;
-    public Slider sliderVAIO3 = null;
+	public Slider sliderVAIO;
+    public Slider sliderAUX;
+    public Slider sliderVAIO3;
 
     [Space(10)]
 
-    public Text sliderTitleVAIO = null;
-    public Text sliderTitleAUX = null;
-    public Text sliderTitleVAIO3 = null;
+    public Text sliderTitleVAIO;
+    public Text sliderTitleAUX;
+    public Text sliderTitleVAIO3;
 
     [Space(10)]
 
-    public Text sliderValueVAIO = null;
-    public Text sliderValueAUX = null;
-    public Text sliderValueVAIO3 = null;
+    public Text sliderValueVAIO;
+    public Text sliderValueAUX;
+    public Text sliderValueVAIO3;
 
     void Start() 
 	{
