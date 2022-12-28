@@ -2,14 +2,14 @@
 	"source": "builtin",
 	"applications": [
 		{
-			"app_key": "i5ucc.SVRVM",
+			"app_key": "i5ucc.Steameeter",
 			"launch_type": "binary",
-			"binary_path_windows": "./SVRVM.exe",
+			"binary_path_windows": "./Steameeter.exe",
 			"is_dashboard_overlay": true,
 
 			"strings": {
 				"en_us": {
-					"name": "SVRVM",
+					"name": "Steameeter",
 					"description": "Lets you control Virtual Inputs from withing the SteamVR Dashboard."
 				}
 			}
