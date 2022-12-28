@@ -118,6 +118,9 @@ public class SteamMeeter_Director : MonoBehaviour
         sliderTitleVAIO3.text = slidertext3 != "" ? slidertext3 : sliderTitleVAIO3.text;
     }
 
+    /// <summary>
+    /// Gets Slider Gain levels and Titles and sets them.
+    /// </summary>
     private void SetSliders()
     {
         string slidertext1 = Remote.GetTextParameter(VAIOSTRIPPARAM + ".Label");
@@ -134,6 +137,9 @@ public class SteamMeeter_Director : MonoBehaviour
         sliderVAIO3.value = Remote.GetParameter(VAIO3STRIPPARAM + ".Gain");
     }
 
+    /// <summary>
+    /// Resets the program.
+    /// </summary>
     public void Reset()
     {
         if (File.Exists(VRXMLFILEPATH))
@@ -146,35 +152,50 @@ public class SteamMeeter_Director : MonoBehaviour
         }
     }
     
+    /// <summary>
+    /// Restarts the Voicemeeter Audio Engine
+    /// </summary>
     public void Restart() => Remote.Restart();
 
+    /// <summary>
+    /// Sets VAIO Volume Remotely.
+    /// </summary>
+    /// <param name="value">value to set</param>
     public void SetVAIOVolume(float value)
     {
         Remote.SetParameter(VAIOSTRIPPARAM + ".Gain", value);
         sliderValueVAIO.text = value.ToString("n1");
     }
 
+    /// <summary>
+    /// Sets AUX Volume Remotely.
+    /// </summary>
+    /// <param name="value">value to set</param>
     public void SetAUXVolume(float value)
     {
         Remote.SetParameter(AUXSTRIPPARAM + ".Gain", value);
         sliderValueAUX.text = value.ToString("n1");
     }
 
+    /// <summary>
+    /// Sets VAIO3 Volume Remotely.
+    /// </summary>
+    /// <param name="value">value to set</param>
     public void SetVAIO3Volume(float value)
     {
         Remote.SetParameter(VAIO3STRIPPARAM + ".Gain", value);
         sliderValueVAIO3.text = value.ToString("n1");
     }
 
-    public void IncrementVAIO() => sliderVAIO.value += INCREMENTVALUE;
+    public void IncrementVAIOSlider() => sliderVAIO.value += INCREMENTVALUE;
 
-    public void IncrementAUX() => sliderAUX.value += INCREMENTVALUE;
+    public void IncrementAUXSlider() => sliderAUX.value += INCREMENTVALUE;
 
-    public void IncrementVAIO3() => sliderVAIO3.value += INCREMENTVALUE;
+    public void IncrementVAIO3Slider() => sliderVAIO3.value += INCREMENTVALUE;
 
-    public void DecrementVAIO() => sliderVAIO.value -= DECREMENTVALUE;
+    public void DecrementVAIOSlider() => sliderVAIO.value -= DECREMENTVALUE;
 
-    public void DecrementAUX() => sliderAUX.value -= DECREMENTVALUE;
+    public void DecrementAUXSlider() => sliderAUX.value -= DECREMENTVALUE;
 
-    public void DecrementVAIO3() => sliderVAIO3.value -= DECREMENTVALUE;
+    public void DecrementVAIO3Slider() => sliderVAIO3.value -= DECREMENTVALUE;
 }

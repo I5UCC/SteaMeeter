@@ -224,7 +224,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -60, y: -46.899994}
-  m_SizeDelta: {x: 30, y: 30}
+  m_SizeDelta: {x: 17.5, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &22281030
 MonoBehaviour:
@@ -1186,7 +1186,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 49679439}
-        m_MethodName: DecrementAUX
+        m_MethodName: DecrementAUXSlider
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2069,7 +2069,7 @@ GameObject:
   - component: {fileID: 842344133}
   - component: {fileID: 842344132}
   m_Layer: 0
-  m_Name: SteamMeeter Menu Dashboard Overlay
+  m_Name: Menu Dashboard Overlay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2109,8 +2109,8 @@ MonoBehaviour:
   renderModelColor: {r: 1, g: 1, b: 1, a: 1}
   sideBySideParallel: 0
   sideBySideCrossed: 0
-  overlayName: SVRVM
-  overlayKey: svrvm_menu
+  overlayName: SteamMeeter
+  overlayKey: steammeeter_menu
   isDashboardOverlay: 1
   highQuality: 0
   isVisible: 1
@@ -2903,7 +2903,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 49679439}
-        m_MethodName: IncrementVAIO
+        m_MethodName: IncrementVAIOSlider
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3163,7 +3163,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 49679439}
-        m_MethodName: IncrementVAIO3
+        m_MethodName: IncrementVAIO3Slider
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3649,7 +3649,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 49679439}
-        m_MethodName: DecrementVAIO3
+        m_MethodName: DecrementVAIO3Slider
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3731,7 +3731,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -46.90001}
-  m_SizeDelta: {x: 30, y: 30}
+  m_SizeDelta: {x: 17.5, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1925270866
 MonoBehaviour:
@@ -3857,7 +3857,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 49679439}
-        m_MethodName: DecrementVAIO
+        m_MethodName: DecrementVAIOSlider
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4181,7 +4181,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 49679439}
-        m_MethodName: IncrementAUX
+        m_MethodName: IncrementAUXSlider
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4263,7 +4263,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 60, y: -46.899994}
-  m_SizeDelta: {x: 30, y: 30}
+  m_SizeDelta: {x: 17.5, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2068976422
 MonoBehaviour:
