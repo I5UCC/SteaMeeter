@@ -40,7 +40,7 @@ public class WindowController : MonoBehaviour
 
     private IntPtr winHandle;
 
-    private SVRVMTrayForm trayForm;
+    private SteamMeeterTrayForm trayForm;
 
 
 #if UNITY_STANDALONE_WIN && !UNITY_EDITOR
@@ -97,7 +97,7 @@ public class WindowController : MonoBehaviour
 #if !UNITY_EDITOR
         if(trayForm == null)
         {
-            trayForm = new SVRVMTrayForm(trayIconTex); //CreateIcon(trayIconTex));
+            trayForm = new SteamMeeterTrayForm(trayIconTex); //CreateIcon(trayIconTex));
 
             trayForm.onExitCallback += OnExit;
         }
@@ -152,7 +152,7 @@ public class WindowController : MonoBehaviour
     }
 }
 
-public class SVRVMTrayForm : System.Windows.Forms.Form 
+public class SteamMeeterTrayForm : System.Windows.Forms.Form 
 {
     public delegate void OnExitDel();
     public delegate void OnShowWindowDel();
@@ -163,7 +163,7 @@ public class SVRVMTrayForm : System.Windows.Forms.Form
     private System.Windows.Forms.ContextMenuStrip trayMenu;
     private NotifyIcon trayIcon;
 
-    public SVRVMTrayForm(Texture2D tex = null)
+    public SteamMeeterTrayForm(Texture2D tex = null)
     {
         trayMenu = new System.Windows.Forms.ContextMenuStrip();
 
@@ -198,7 +198,7 @@ public class SVRVMTrayForm : System.Windows.Forms.Form
         base.OnLoad(e);
     }
 
-    ~SVRVMTrayForm()
+    ~SteamMeeterTrayForm()
     {
         Dispose(true);
     }

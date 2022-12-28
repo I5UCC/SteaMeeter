@@ -131,7 +131,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1141945}
   m_Layer: 9
-  m_Name: SVRVM Menu Rig
+  m_Name: SteamMeeter Menu Rig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -201,7 +201,7 @@ GameObject:
   - component: {fileID: 22281031}
   - component: {fileID: 22281030}
   m_Layer: 9
-  m_Name: SliderValue1
+  m_Name: SliderValue_VAIO
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -353,7 +353,7 @@ GameObject:
   - component: {fileID: 49679439}
   - component: {fileID: 49679437}
   m_Layer: 0
-  m_Name: SVRVM_Director
+  m_Name: SteamMeeter_Director
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -386,15 +386,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuOverlay: {fileID: 842344132}
-  slider1: {fileID: 65653144}
-  slider2: {fileID: 547786204}
-  slider3: {fileID: 61297189}
-  sliderTitle1: {fileID: 1428674837}
-  sliderTitle2: {fileID: 1163033029}
-  sliderTitle3: {fileID: 1217000944}
-  sliderValue1: {fileID: 22281030}
-  sliderValue2: {fileID: 1925270866}
-  sliderValue3: {fileID: 2068976422}
+  sliderVAIO: {fileID: 65653144}
+  sliderAUX: {fileID: 547786204}
+  sliderVAIO3: {fileID: 61297189}
+  sliderTitleVAIO: {fileID: 1428674837}
+  sliderTitleAUX: {fileID: 1163033029}
+  sliderTitleVAIO3: {fileID: 1217000944}
+  sliderValueVAIO: {fileID: 22281030}
+  sliderValueAUX: {fileID: 1925270866}
+  sliderValueVAIO3: {fileID: 2068976422}
 --- !u!4 &49679440
 Transform:
   m_ObjectHideFlags: 0
@@ -423,7 +423,7 @@ GameObject:
   - component: {fileID: 61297188}
   - component: {fileID: 61297189}
   m_Layer: 9
-  m_Name: Slider3
+  m_Name: Slider_VAIO 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -502,7 +502,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 49679439}
-        m_MethodName: SetOutput3Volume
+        m_MethodName: SetVAIO3Volume
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -523,7 +523,7 @@ GameObject:
   - component: {fileID: 65653143}
   - component: {fileID: 65653144}
   m_Layer: 9
-  m_Name: Slider1
+  m_Name: Slider_VAIO
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -602,7 +602,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 49679439}
-        m_MethodName: SetOutput1Volume
+        m_MethodName: SetVAIOVolume
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -826,6 +826,41 @@ MonoBehaviour:
   m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
   m_DragThreshold: 5
+--- !u!84 &232331486
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Overlay RenderTexture
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  serializedVersion: 3
+  m_Width: 1280
+  m_Height: 1000
+  m_AntiAliasing: 8
+  m_MipCount: -1
+  m_DepthFormat: 2
+  m_ColorFormat: 4
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 1
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_EnableCompatibleFormat: 1
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 2
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1 &251543882
 GameObject:
   m_ObjectHideFlags: 0
@@ -1151,7 +1186,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 49679439}
-        m_MethodName: DecrementOutput2
+        m_MethodName: DecrementAUX
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1546,7 +1581,7 @@ GameObject:
   - component: {fileID: 547786203}
   - component: {fileID: 547786204}
   m_Layer: 9
-  m_Name: Slider2
+  m_Name: Slider_AUX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1625,7 +1660,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 49679439}
-        m_MethodName: SetOutput2Volume
+        m_MethodName: SetAUXVolume
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2034,7 +2069,7 @@ GameObject:
   - component: {fileID: 842344133}
   - component: {fileID: 842344132}
   m_Layer: 0
-  m_Name: SVRVM Menu Dashboard Overlay
+  m_Name: SteamMeeter Menu Dashboard Overlay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2055,7 +2090,7 @@ MonoBehaviour:
   steamVRHandlerPrefab: {fileID: 385247157}
   autoUpdateOverlay: 1
   simulateInEditor: 0
-  overlayTexture: {fileID: 1261974184}
+  overlayTexture: {fileID: 232331486}
   cameraForTexture: {fileID: 925602069}
   renderTexWidthOverride: 1280
   renderTexHeightOverride: 1000
@@ -2375,7 +2410,7 @@ GameObject:
   - component: {fileID: 1163033030}
   - component: {fileID: 1163033029}
   m_Layer: 9
-  m_Name: SliderTitle2
+  m_Name: Title_AUX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2398,7 +2433,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 64.09999}
-  m_SizeDelta: {x: 30, y: 21}
+  m_SizeDelta: {x: 90, y: 21}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1163033029
 MonoBehaviour:
@@ -2421,18 +2456,18 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 12
+    m_FontSize: 15
     m_FontStyle: 0
-    m_BestFit: 1
+    m_BestFit: 0
     m_MinSize: 0
-    m_MaxSize: 40
-    m_Alignment: 1
+    m_MaxSize: 15
+    m_Alignment: 4
     m_AlignByGeometry: 1
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Virtual Input 2
+  m_Text: AUX
 --- !u!222 &1163033030
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2483,7 +2518,7 @@ GameObject:
   - component: {fileID: 1217000945}
   - component: {fileID: 1217000944}
   m_Layer: 9
-  m_Name: SliderTitle3
+  m_Name: Title_VAIO 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2506,7 +2541,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 60, y: 64.09999}
-  m_SizeDelta: {x: 30, y: 21}
+  m_SizeDelta: {x: 90, y: 21}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1217000944
 MonoBehaviour:
@@ -2529,18 +2564,18 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 12
+    m_FontSize: 15
     m_FontStyle: 0
-    m_BestFit: 1
+    m_BestFit: 0
     m_MinSize: 0
-    m_MaxSize: 40
-    m_Alignment: 1
+    m_MaxSize: 15
+    m_Alignment: 4
     m_AlignByGeometry: 1
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Virtual Input 3
+  m_Text: VAIO 3
 --- !u!222 &1217000945
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2549,41 +2584,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1217000942}
   m_CullTransparentMesh: 0
---- !u!84 &1261974184
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Overlay RenderTexture
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  serializedVersion: 3
-  m_Width: 1280
-  m_Height: 1000
-  m_AntiAliasing: 8
-  m_MipCount: -1
-  m_DepthFormat: 2
-  m_ColorFormat: 4
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 1
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_EnableCompatibleFormat: 1
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 2
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1 &1284637917
 GameObject:
   m_ObjectHideFlags: 0
@@ -2754,7 +2754,7 @@ GameObject:
   - component: {fileID: 1428674838}
   - component: {fileID: 1428674837}
   m_Layer: 9
-  m_Name: SliderTitle1
+  m_Name: Title_VAIO
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2777,7 +2777,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -60, y: 64.09999}
-  m_SizeDelta: {x: 30, y: 21}
+  m_SizeDelta: {x: 90, y: 21}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1428674837
 MonoBehaviour:
@@ -2800,18 +2800,18 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 12
+    m_FontSize: 15
     m_FontStyle: 0
-    m_BestFit: 1
+    m_BestFit: 0
     m_MinSize: 0
-    m_MaxSize: 40
-    m_Alignment: 1
+    m_MaxSize: 15
+    m_Alignment: 4
     m_AlignByGeometry: 1
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Virtual Input 1
+  m_Text: VAIO
 --- !u!222 &1428674838
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2903,7 +2903,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 49679439}
-        m_MethodName: IncrementOutput1
+        m_MethodName: IncrementVAIO
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3163,7 +3163,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 49679439}
-        m_MethodName: IncrementOutput3
+        m_MethodName: IncrementVAIO3
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3649,7 +3649,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 49679439}
-        m_MethodName: DecrementOutput3
+        m_MethodName: DecrementVAIO3
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3708,7 +3708,7 @@ GameObject:
   - component: {fileID: 1925270867}
   - component: {fileID: 1925270866}
   m_Layer: 9
-  m_Name: SliderValue2
+  m_Name: SliderValue_AUX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3857,7 +3857,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 49679439}
-        m_MethodName: DecrementOutput1
+        m_MethodName: DecrementVAIO
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4181,7 +4181,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 49679439}
-        m_MethodName: IncrementOutput2
+        m_MethodName: IncrementAUX
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4240,7 +4240,7 @@ GameObject:
   - component: {fileID: 2068976423}
   - component: {fileID: 2068976422}
   m_Layer: 9
-  m_Name: SliderValue3
+  m_Name: SliderValue_VAIO 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
