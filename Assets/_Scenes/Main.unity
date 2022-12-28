@@ -131,7 +131,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1141945}
   m_Layer: 9
-  m_Name: SteamMeeter Menu Rig
+  m_Name: Menu Rig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -353,7 +353,7 @@ GameObject:
   - component: {fileID: 49679439}
   - component: {fileID: 49679437}
   m_Layer: 0
-  m_Name: SteamMeeter_Director
+  m_Name: Steameeter_Director
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

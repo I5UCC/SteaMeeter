@@ -6,7 +6,7 @@ using Valve.VR;
 using VoiceMeeter;
 using Voicemeeter;
 
-public class SteamMeeter_Director : MonoBehaviour
+public class Steameeter_Director : MonoBehaviour
 {
     private readonly string DEFAULTXMLPATH = Path.GetFullPath("default.xml");
     private readonly string VRXMLFILEPATH = Path.GetFullPath("vr.xml");

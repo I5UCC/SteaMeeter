@@ -40,7 +40,7 @@ public class WindowController : MonoBehaviour
 
     private IntPtr winHandle;
 
-    private SteamMeeterTrayForm trayForm;
+    private TrayForm trayForm;
 
 
 #if UNITY_STANDALONE_WIN && !UNITY_EDITOR
@@ -97,7 +97,7 @@ public class WindowController : MonoBehaviour
 #if !UNITY_EDITOR
         if(trayForm == null)
         {
-            trayForm = new SteamMeeterTrayForm(trayIconTex); //CreateIcon(trayIconTex));
+            trayForm = new TrayForm(trayIconTex); //CreateIcon(trayIconTex));
 
             trayForm.onExitCallback += OnExit;
         }
@@ -152,7 +152,7 @@ public class WindowController : MonoBehaviour
     }
 }
 
-public class SteamMeeterTrayForm : System.Windows.Forms.Form 
+public class TrayForm : System.Windows.Forms.Form 
 {
     public delegate void OnExitDel();
     public delegate void OnShowWindowDel();
@@ -163,14 +163,14 @@ public class SteamMeeterTrayForm : System.Windows.Forms.Form
     private System.Windows.Forms.ContextMenuStrip trayMenu;
     private NotifyIcon trayIcon;
 
-    public SteamMeeterTrayForm(Texture2D tex = null)
+    public TrayForm(Texture2D tex = null)
     {
         trayMenu = new System.Windows.Forms.ContextMenuStrip();
 
         trayMenu.Items.Add("Exit", CreateBitmap(Texture2D.whiteTexture), OnExit);
 
         trayIcon = new NotifyIcon();
-        trayIcon.Text = "SVRVM";
+        trayIcon.Text = "Steameeter";
 
         trayIcon.ContextMenuStrip = trayMenu;
 
@@ -198,7 +198,7 @@ public class SteamMeeterTrayForm : System.Windows.Forms.Form
         base.OnLoad(e);
     }
 
-    ~SteamMeeterTrayForm()
+    ~TrayForm()
     {
         Dispose(true);
     }
