@@ -5,17 +5,22 @@ using UnityEngine.UI;
 using Valve.VR;
 using VoiceMeeter;
 using Voicemeeter;
+using IniParser;
+using IniParser.Model;
 
 public class Steameeter_Director : MonoBehaviour
 {
-    private readonly string DEFAULTXMLPATH = Path.GetFullPath("default.xml");
-    private readonly string VRXMLFILEPATH = Path.GetFullPath("vr.xml");
     private readonly string MANIFESTLFILEPATH = Path.GetFullPath("app.vrmanifest");
-    private readonly float INCREMENTVALUE = 2;
-    private readonly float DECREMENTVALUE = 2;
-    private readonly string VAIOSTRIPPARAM = "Strip[5]";
-    private readonly string AUXSTRIPPARAM = "Strip[6]";
-    private readonly string VAIO3STRIPPARAM = "Strip[7]";
+
+    private string defaultXMLPath = Path.GetFullPath("default.xml");
+    private string vrXMLPath = Path.GetFullPath("vr.xml");
+    
+    private float incrementValue = 2;
+    private float decrementValue = 2;
+
+    private int VAIOStripIndex = 5;
+    private int AUXStripIndex = 6;
+    private int VAIO3StripIndex = 7;
 
     public Unity_Overlay menuOverlay;
 
@@ -37,33 +42,68 @@ public class Steameeter_Director : MonoBehaviour
     public Text sliderValueAUX;
     public Text sliderValueVAIO3;
 
+    private bool initialized = false;
+
     void Start() 
 	{
-        Remote.Initialize(RunVoicemeeterParam.VoicemeeterPotato);
-        Reset();
-    }
-
-	public void OnApplicationQuit()
-	{
-        if (File.Exists(DEFAULTXMLPATH))
-        {
-            Remote.Load(DEFAULTXMLPATH);
-        }
-	}
-
-    public void OnSteamVRConnect()
-	{
+        LoadConfig();
         if (File.Exists(MANIFESTLFILEPATH))
         {
             OpenVR.Applications.AddApplicationManifest(MANIFESTLFILEPATH, false);
         }
     }
 
+	public void OnApplicationQuit()
+	{
+        if (initialized && File.Exists(defaultXMLPath))
+        {
+            Debug.Log("Loading:" + defaultXMLPath);
+            Remote.Load(defaultXMLPath);
+        }
+        else
+        {
+            Debug.Log(defaultXMLPath + " not found! Continuing without it...");
+        }
+    }
+
+    public void OnSteamVRConnect()
+	{
+        Debug.Log("Initializing");
+        Remote.Initialize(RunVoicemeeterParam.VoicemeeterPotato);
+        Reset();
+        initialized = true;
+    }
+
 	public void OnSteamVRDisconnect()
 	{
 		Debug.Log("Quitting!");
-		Application.Quit();
+        Application.Quit();
 	}
+
+    private void LoadConfig()
+    {
+        var parser = new FileIniDataParser();
+        IniData config = parser.ReadFile(Path.GetFullPath("config.ini"));
+
+        defaultXMLPath = config["Settings"]["XMLPath_Default"].ToString();
+        if (!Path.IsPathRooted(defaultXMLPath))
+        {
+            defaultXMLPath = Path.GetFullPath(defaultXMLPath);
+        }
+
+        vrXMLPath = config["Settings"]["XMLPath_VR"].ToString();
+        if (!Path.IsPathRooted(vrXMLPath))
+        {
+            vrXMLPath = Path.GetFullPath(vrXMLPath);
+        }
+
+        incrementValue = int.Parse(config["Settings"]["IncrementValue"]);
+        decrementValue = int.Parse(config["Settings"]["DecrementValue"]);
+
+        VAIOStripIndex = int.Parse(config["Settings"]["StripIndex_VAIO"]);
+        AUXStripIndex = int.Parse(config["Settings"]["StripIndex_AUX"]);
+        VAIO3StripIndex = int.Parse(config["Settings"]["StripIndex_VAIO3"]);
+    }
 
     /// <summary>
     /// Escapes some illegal characters in an XML file.
@@ -82,6 +122,7 @@ public class Steameeter_Director : MonoBehaviour
     /// <param name="xmlpath">Full Path to the XML-file.</param>
     private void LoadVMXML(string xmlpath)
     {
+        Debug.Log("Loading:" + xmlpath);
         Remote.Load(xmlpath);
 
         XmlDocument xml = new XmlDocument();
@@ -93,17 +134,18 @@ public class Steameeter_Director : MonoBehaviour
             string dblevel = item.GetAttribute("dblevel");
             if (dblevel != "")
             {
-                switch (item.GetAttribute("index"))
+                int index = int.Parse(item.GetAttribute("index")) - 1;
+                if(index == VAIOStripIndex)
                 {
-                    case "6":
-                        sliderVAIO.value = float.Parse(dblevel);
-                        break;
-                    case "7":
-                        sliderAUX.value = float.Parse(dblevel);
-                        break;
-                    case "8":
-                        sliderVAIO3.value = float.Parse(dblevel);
-                        break;
+                    sliderVAIO.value = float.Parse(dblevel);
+                }
+                else if (index == AUXStripIndex)
+                {
+                    sliderAUX.value = float.Parse(dblevel);
+                }
+                else if (index == VAIO3StripIndex)
+                {
+                    sliderVAIO3.value = float.Parse(dblevel);
                 }
             }
         }
@@ -123,18 +165,18 @@ public class Steameeter_Director : MonoBehaviour
     /// </summary>
     private void SetSliders()
     {
-        string slidertext1 = Remote.GetTextParameter(VAIOSTRIPPARAM + ".Label");
+        string slidertext1 = Remote.GetTextParameter(string.Format("Strip[{0}].Label", VAIOStripIndex));
         sliderTitleVAIO.text = slidertext1 != "" ? slidertext1 : sliderTitleVAIO.text;
 
-        string slidertext2 = Remote.GetTextParameter(AUXSTRIPPARAM + ".Label");
+        string slidertext2 = Remote.GetTextParameter(string.Format("Strip[{0}].Label", AUXStripIndex));
         sliderTitleAUX.text = slidertext2 != "" ? slidertext2 : sliderTitleAUX.text;
 
-        string slidertext3 = Remote.GetTextParameter(VAIO3STRIPPARAM + ".Label");
+        string slidertext3 = Remote.GetTextParameter(string.Format("Strip[{0}].Label", VAIO3StripIndex));
         sliderTitleVAIO3.text = slidertext3 != "" ? slidertext3 : sliderTitleVAIO3.text;
 
-        sliderVAIO.value = Remote.GetParameter(VAIOSTRIPPARAM + ".Gain");
-        sliderAUX.value = Remote.GetParameter(AUXSTRIPPARAM + ".Gain");
-        sliderVAIO3.value = Remote.GetParameter(VAIO3STRIPPARAM + ".Gain");
+        sliderVAIO.value = Remote.GetParameter(string.Format("Strip[{0}].Gain", VAIOStripIndex));
+        sliderAUX.value = Remote.GetParameter(string.Format("Strip[{0}].Gain", AUXStripIndex));
+        sliderVAIO3.value = Remote.GetParameter(string.Format("Strip[{0}].Gain", VAIO3StripIndex));
     }
 
     /// <summary>
@@ -142,12 +184,13 @@ public class Steameeter_Director : MonoBehaviour
     /// </summary>
     public void Reset()
     {
-        if (File.Exists(VRXMLFILEPATH))
+        if (File.Exists(vrXMLPath))
         {
-            LoadVMXML(VRXMLFILEPATH);
+            LoadVMXML(vrXMLPath);
         }
         else
         {
+            Debug.Log(vrXMLPath + " not found! Continuing without it...");
             SetSliders();
         }
     }
@@ -163,7 +206,7 @@ public class Steameeter_Director : MonoBehaviour
     /// <param name="value">value to set</param>
     public void SetVAIOVolume(float value)
     {
-        Remote.SetParameter(VAIOSTRIPPARAM + ".Gain", value);
+        Remote.SetParameter(string.Format("Strip[{0}].Gain", VAIOStripIndex), value);
         sliderValueVAIO.text = value.ToString("n1");
     }
 
@@ -173,7 +216,7 @@ public class Steameeter_Director : MonoBehaviour
     /// <param name="value">value to set</param>
     public void SetAUXVolume(float value)
     {
-        Remote.SetParameter(AUXSTRIPPARAM + ".Gain", value);
+        Remote.SetParameter(string.Format("Strip[{0}].Gain", AUXStripIndex), value);
         sliderValueAUX.text = value.ToString("n1");
     }
 
@@ -183,19 +226,19 @@ public class Steameeter_Director : MonoBehaviour
     /// <param name="value">value to set</param>
     public void SetVAIO3Volume(float value)
     {
-        Remote.SetParameter(VAIO3STRIPPARAM + ".Gain", value);
+        Remote.SetParameter(string.Format("Strip[{0}].Gain", VAIO3StripIndex), value);
         sliderValueVAIO3.text = value.ToString("n1");
     }
 
-    public void IncrementVAIOSlider() => sliderVAIO.value += INCREMENTVALUE;
+    public void IncrementVAIOSlider() => sliderVAIO.value += incrementValue;
 
-    public void IncrementAUXSlider() => sliderAUX.value += INCREMENTVALUE;
+    public void IncrementAUXSlider() => sliderAUX.value += incrementValue;
 
-    public void IncrementVAIO3Slider() => sliderVAIO3.value += INCREMENTVALUE;
+    public void IncrementVAIO3Slider() => sliderVAIO3.value += incrementValue;
 
-    public void DecrementVAIOSlider() => sliderVAIO.value -= DECREMENTVALUE;
+    public void DecrementVAIOSlider() => sliderVAIO.value -= decrementValue;
 
-    public void DecrementAUXSlider() => sliderAUX.value -= DECREMENTVALUE;
+    public void DecrementAUXSlider() => sliderAUX.value -= decrementValue;
 
-    public void DecrementVAIO3Slider() => sliderVAIO3.value -= DECREMENTVALUE;
+    public void DecrementVAIO3Slider() => sliderVAIO3.value -= decrementValue;
 }
