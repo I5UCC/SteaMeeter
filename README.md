@@ -6,5 +6,6 @@ This Script will load the XML-File ***vr.xml*** on SteamVR startup and when Stea
 # [DOWNLOAD HERE](https://github.com/I5UCC/SVRVoicemeeter/releases/download/v0.1/SVRVMv0.1.zip)
 
 # Credit
-[Otter-Co's](https://github.com/Otter-Co] for [Turnsignal](https://github.com/Otter-Co/TurnSignal). Studying their Project made this alot easier.
-[benotter](https://github.com/benotter) for [OVRLay](https://github.com/benotter/OVRLay)
+[Otter-Co's](https://github.com/Otter-Co) for [Turnsignal](https://github.com/Otter-Co/TurnSignal). Studying their Project made this alot easier. </br>
+[benotter](https://github.com/benotter) for [OVRLay](https://github.com/benotter/OVRLay).</br>
+[bobhelander](https://github.com/bobhelander) for [VoicemeeterRemote](https://github.com/bobhelander/VoicemeeterRemote)
