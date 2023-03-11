@@ -3,6 +3,8 @@ SteamVR Dashboard Application that gives you control over the Virtual Inputs of 
 
 This program will load the XML-File ***vr.xml*** on SteamVR startup and when SteamVR Closes will load in ***default.xml***. You can export those xml files with Voicemeeter by Configuring Voicemeeter for both cases then Menu > Save Settings...
 
+### [Discord Support Server](https://discord.gg/rqcWHje3hn)
+
 # [DOWNLOAD HERE](https://github.com/I5UCC/SVRVoicemeeter/releases/download/v0.1/SVRVMv0.1.zip)
 
 # Credit
