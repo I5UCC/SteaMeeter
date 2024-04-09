@@ -7,6 +7,28 @@ This program will load the XML-File ***vr.xml*** on SteamVR startup and when Ste
 
 ![image](https://github.com/I5UCC/Steameeter-Potato/assets/43730681/75ee2ec5-ae64-42d2-a4a1-2f275b9d7581)
 
+Currently only supports control of the Virtual inputs, this may expand later.
+
+### OSCQuery support for VRChat
+
+https://github.com/I5UCC/VRCVoiceMeeterControl/assets/43730681/d8f16c9c-84de-4aa2-820f-de59572e04fa
+
+Will listen to following endpoints:
+
+| Parameter      | Description |
+| -------------- | --------------- |
+| /avatar/parameters/sm/restart | Restarts the Audio Engine and fetches current audio Settings to Dashboard/OSC |
+| /avatar/parameters/sm/media/next | Media button Next |
+| /avatar/parameters/sm/media/previous  | Media button Previous |
+| /avatar/parameters/sm/media/playpause  | Media button Play/Pause |
+| /avatar/parameters/sm/profile/0  | Load vr.xml |
+| /avatar/parameters/sm/profile/1 | Load profile1.xml |
+| /avatar/parameters/sm/profile/2 | Load profile2.xml |
+| /avatar/parameters/sm/profile/3 | Load profile3.xml |
+| /avatar/parameters/sm/gain/VAIO | Control gain of VAIO virtual input |
+| /avatar/parameters/sm/gain/AUX | Control gain of AUX virtual input |
+| /avatar/parameters/sm/gain/VAIO3 | Control gain of VAIO3 virtual input |
+
 # Credit
 [Otter-Co's](https://github.com/Otter-Co) for [Turnsignal](https://github.com/Otter-Co/TurnSignal). Studying their Project made this alot easier. </br>
 [benotter](https://github.com/benotter) for [OVRLay](https://github.com/benotter/OVRLay).</br>
