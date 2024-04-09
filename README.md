@@ -20,7 +20,7 @@ Will listen to following endpoints:
 | /avatar/parameters/sm/gain/VAIO | Control gain of VAIO virtual input |
 | /avatar/parameters/sm/gain/AUX | Control gain of AUX virtual input |
 | /avatar/parameters/sm/gain/VAIO3 | Control gain of VAIO3 virtual input |
-| /avatar/parameters/sm/restart | Restarts the Audio Engine and fetches current audio Settings to Dashboard/OSC |
+| /avatar/parameters/sm/restart | Restarts the Audio Engine and fetches<br> current audio Settings to Dashboard/OSC |
 | /avatar/parameters/sm/profile/0  | Load vr.xml |
 | /avatar/parameters/sm/profile/1 | Load profile1.xml |
 | /avatar/parameters/sm/profile/2 | Load profile2.xml |
