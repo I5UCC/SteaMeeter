@@ -832,11 +832,11 @@ PlayerSettings:
   apiCompatibilityLevel: 3
   activeInputHandler: 0
   windowsGamepadBackendHint: 0
-  cloudProjectId: fb82fe25-0d8f-4df9-b852-ce725e8ddd89
+  cloudProjectId: 
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: Steameeter
-  organizationId: I5UCC
+  projectName: 
+  organizationId: 
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 1
   hmiLoadingImage: {fileID: 0}
