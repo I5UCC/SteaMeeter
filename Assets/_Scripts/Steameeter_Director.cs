@@ -1,5 +1,4 @@
-﻿using System.Xml;
-using System.IO;
+﻿using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using Valve.VR;
@@ -8,6 +7,14 @@ using Voicemeeter;
 using IniParser;
 using IniParser.Model;
 using System.Threading;
+using VRC.OSCQuery;
+using OscCore;
+using BlobHandles;
+using System.Net;
+using System.Net.Sockets;
+using System.Text.RegularExpressions;
+using System;
+using System.Collections.Generic;
 
 public class Steameeter_Director : MonoBehaviour
 {
@@ -15,6 +22,9 @@ public class Steameeter_Director : MonoBehaviour
 
     private string defaultXMLPath = Path.GetFullPath("default.xml");
     private string vrXMLPath = Path.GetFullPath("vr.xml");
+    private string profile1XMLPath = Path.GetFullPath("profile1.xml");
+    private string profile2XMLPath = Path.GetFullPath("profile2.xml");
+    private string profile3XMLPath = Path.GetFullPath("profile3.xml");
     
     private float incrementValue = 2;
     private float decrementValue = 2;
@@ -45,13 +55,104 @@ public class Steameeter_Director : MonoBehaviour
 
     private bool initialized = false;
 
+    private OSCQueryService _oscQuery;
+    private int tcpPort = Extensions.GetAvailableTcpPort();
+    private int udpPort = Extensions.GetAvailableUdpPort();
+    private OscServer _receiver;
+    private OscClient _sender;
+
     void Start() 
 	{
         LoadConfig();
+        Start_OSC();
         if (File.Exists(MANIFESTLFILEPATH))
         {
             OpenVR.Applications.AddApplicationManifest(MANIFESTLFILEPATH, false);
         }
+    }
+
+    private void Start_OSC() {
+        _sender = new OscClient("127.0.0.1", 9000);
+        VRC.OSCQuery.IDiscovery discovery = new MeaModDiscovery();
+        _receiver = OscServer.GetOrCreate(udpPort);
+
+        // Listen to all incoming messages
+        _receiver.AddMonitorCallback(OnMessageReceived);
+
+        _oscQuery = new OSCQueryServiceBuilder()
+            .WithServiceName("Steameeter")
+            .WithHostIP(GetLocalIPAddress())
+            .WithOscIP(GetLocalIPAddressNonLoopback())
+            .WithTcpPort(tcpPort)
+            .WithUdpPort(udpPort)
+            .WithDiscovery(discovery)
+            .StartHttpServer()
+            .AdvertiseOSC()
+            .AdvertiseOSCQuery()
+            .Build();
+        _oscQuery.RefreshServices();
+        _oscQuery.OnOscQueryServiceAdded += profile => Debug.Log($"\nfound service {profile.name} at {profile.port} on {profile.address}");
+        _oscQuery.AddEndpoint<string>("/avatar/change", Attributes.AccessValues.WriteOnly);
+    }
+
+    private void OnMessageReceived(BlobString address, OscMessageValues values)
+    {
+        string address_string = address.ToString();
+        if (!Regex.IsMatch(address_string, "vm_"))
+        {
+            return;
+        }
+
+        var actions = new Dictionary<string, Action>
+        {
+            { "/avatar/parameters/vm_restart", () => Remote.Restart() },
+            { "/avatar/parameters/vm_profile_0", () => Remote.Load(vrXMLPath) },
+            { "/avatar/parameters/vm_profile_1", () => Remote.Load(profile1XMLPath) },
+            { "/avatar/parameters/vm_profile_2", () => Remote.Load(profile2XMLPath) },
+            { "/avatar/parameters/vm_profile_3", () => Remote.Load(profile3XMLPath) },
+            { "/avatar/parameters/vm_in_gain_5", () => SetStrip(VAIOStripIndex, values.ReadFloatElement(0)) },
+            { "/avatar/parameters/vm_in_gain_6", () => SetStrip(AUXStripIndex, values.ReadFloatElement(0)) },
+            { "/avatar/parameters/vm_in_gain_7", () => SetStrip(VAIO3StripIndex, values.ReadFloatElement(0)) }
+        };
+
+        if (actions.TryGetValue(address_string, out var action))
+        {
+            action();
+        }
+    }
+
+    private void SetStrip(int stripIndex, float value)
+    {
+        // Map float value [0, 1] to [-60, 0]
+        value = (value * 60) - 60;
+        Remote.SetParameter(string.Format("Strip[{0}].Gain", stripIndex), value);
+    }
+
+    public static IPAddress GetLocalIPAddress()
+    {
+        // Android can always serve on the non-loopback address
+    #if UNITY_ANDROID
+        return GetLocalIPAddressNonLoopback();
+    #else
+        // Windows can only serve TCP on the loopback address, but can serve UDP on the non-loopback address
+        return IPAddress.Loopback;
+    #endif
+    }
+
+    public static IPAddress GetLocalIPAddressNonLoopback()
+    {
+        // Get the host name of the local machine
+        string hostName = Dns.GetHostName();
+
+        // Get the IP address of the first IPv4 network interface found on the local machine
+        foreach (IPAddress ip in Dns.GetHostEntry(hostName).AddressList)
+        {
+            if (ip.AddressFamily == AddressFamily.InterNetwork)
+            {
+                return ip;
+            }
+        }
+        return null;
     }
 
 	public void OnApplicationQuit()
@@ -65,6 +166,7 @@ public class Steameeter_Director : MonoBehaviour
         {
             Debug.Log(defaultXMLPath + " not found! Continuing without it...");
         }
+        _receiver.Dispose();
     }
 
     public void OnSteamVRConnect()
@@ -80,11 +182,6 @@ public class Steameeter_Director : MonoBehaviour
 		Debug.Log("Quitting!");
         Application.Quit();
 	}
-
-    public void OnDashboardOpen()
-    {
-        SetSliders();
-    }
 
     private void LoadConfig()
     {
@@ -135,7 +232,7 @@ public class Steameeter_Director : MonoBehaviour
     /// <summary>
     /// Gets Slider Gain levels and Titles and sets them.
     /// </summary>
-    private void SetSliders()
+    public void SetSliders()
     {
         while (Remote.IsParametersDirty() == 1)
         {
@@ -160,9 +257,12 @@ public class Steameeter_Director : MonoBehaviour
         sliderVAIO.value = VAIO_Volume;
         sliderAUX.value = AUX_Volume;
         sliderVAIO3.value = VAIO3_Volume;
-        Debug.Log(VAIO_Volume);
-        Debug.Log(AUX_Volume);
-        Debug.Log(VAIO3_Volume);
+        _sender.Send("/avatar/parameters/vm_in_gain_5", (VAIO_Volume + 60) / 60);
+        _sender.Send("/avatar/parameters/vm_in_gain_6", (AUX_Volume + 60) / 60);
+        _sender.Send("/avatar/parameters/vm_in_gain_7", (VAIO3_Volume + 60) / 60);
+        Debug.Log("VAIO Volume: " + VAIO_Volume);
+        Debug.Log("AUX Volume: " + AUX_Volume);
+        Debug.Log("VAIO3 Volume: " + VAIO3_Volume);
     }
 
     /// <summary>

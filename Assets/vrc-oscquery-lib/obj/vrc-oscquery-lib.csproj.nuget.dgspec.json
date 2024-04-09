@@ -1,0 +1,114 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\Desktop\\vrc-oscquery-lib-main\\vrc-oscquery-lib\\vrc-oscquery-lib.csproj": {}
+  },
+  "projects": {
+    "D:\\Desktop\\vrc-oscquery-lib-main\\vrc-oscquery-lib\\vrc-oscquery-lib.csproj": {
+      "version": "0.0.7",
+      "restore": {
+        "projectUniqueName": "D:\\Desktop\\vrc-oscquery-lib-main\\vrc-oscquery-lib\\vrc-oscquery-lib.csproj",
+        "projectName": "VRChat.OSCQuery",
+        "projectPath": "D:\\Desktop\\vrc-oscquery-lib-main\\vrc-oscquery-lib\\vrc-oscquery-lib.csproj",
+        "packagesPath": "C:\\Users\\ROOT\\.nuget\\packages\\",
+        "outputPath": "D:\\Desktop\\vrc-oscquery-lib-main\\vrc-oscquery-lib\\obj\\",
+        "projectStyle": "PackageReference",
+        "crossTargeting": true,
+        "configFilePaths": [
+          "C:\\Users\\ROOT\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net462",
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          },
+          "net462": {
+            "targetAlias": "net462",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "MeaMod.DNS": {
+              "target": "Package",
+              "version": "[1.0.70, )"
+            },
+            "Microsoft.Extensions.Logging.Abstractions": {
+              "target": "Package",
+              "version": "[6.0.2, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            },
+            "System.Net.Http": {
+              "target": "Package",
+              "version": "[4.3.4, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+        },
+        "net462": {
+          "targetAlias": "net462",
+          "dependencies": {
+            "MeaMod.DNS": {
+              "target": "Package",
+              "version": "[1.0.70, )"
+            },
+            "Microsoft.Extensions.Logging.Abstractions": {
+              "target": "Package",
+              "version": "[6.0.2, )"
+            },
+            "Microsoft.NETFramework.ReferenceAssemblies": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.0.3, )",
+              "autoReferenced": true
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            },
+            "System.Net.Http": {
+              "target": "Package",
+              "version": "[4.3.4, )"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

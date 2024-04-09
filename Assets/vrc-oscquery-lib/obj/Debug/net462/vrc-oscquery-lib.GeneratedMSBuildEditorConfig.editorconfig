@@ -1,0 +1,5 @@
+is_global = true
+build_property.RootNamespace = vrc_oscquery_lib
+build_property.ProjectDir = D:\Desktop\vrc-oscquery-lib-main\vrc-oscquery-lib\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 

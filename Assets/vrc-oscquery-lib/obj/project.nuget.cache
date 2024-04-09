@@ -1,0 +1,58 @@
+{
+  "version": 2,
+  "dgSpecHash": "cU2LiGzMjEv11qKlu/sko3p6sbvL8ZRFlUs2m+5mO+GHFO0PZDZMhROA83QLcufcaDHUeJHUlWMB1f4LfwdOSw==",
+  "success": false,
+  "projectFilePath": "D:\\Desktop\\vrc-oscquery-lib-main\\vrc-oscquery-lib\\vrc-oscquery-lib.csproj",
+  "expectedPackageFiles": [],
+  "logs": [
+    {
+      "code": "NU1101",
+      "level": "Error",
+      "message": "Unable to find package Microsoft.NETFramework.ReferenceAssemblies. No packages exist with this id in source(s): Microsoft Visual Studio Offline Packages",
+      "libraryId": "Microsoft.NETFramework.ReferenceAssemblies",
+      "targetGraphs": [
+        ".NETFramework,Version=v4.6.2"
+      ]
+    },
+    {
+      "code": "NU1101",
+      "level": "Error",
+      "message": "Unable to find package Microsoft.Extensions.Logging.Abstractions. No packages exist with this id in source(s): Microsoft Visual Studio Offline Packages",
+      "libraryId": "Microsoft.Extensions.Logging.Abstractions",
+      "targetGraphs": [
+        ".NETFramework,Version=v4.6.2",
+        "net6.0"
+      ]
+    },
+    {
+      "code": "NU1101",
+      "level": "Error",
+      "message": "Unable to find package MeaMod.DNS. No packages exist with this id in source(s): Microsoft Visual Studio Offline Packages",
+      "libraryId": "MeaMod.DNS",
+      "targetGraphs": [
+        ".NETFramework,Version=v4.6.2",
+        "net6.0"
+      ]
+    },
+    {
+      "code": "NU1102",
+      "level": "Error",
+      "message": "Unable to find package System.Net.Http with version (>= 4.3.4)\r\n  - Found 2 version(s) in Microsoft Visual Studio Offline Packages [ Nearest version: 4.3.0 ]",
+      "libraryId": "System.Net.Http",
+      "targetGraphs": [
+        ".NETFramework,Version=v4.6.2",
+        "net6.0"
+      ]
+    },
+    {
+      "code": "NU1102",
+      "level": "Error",
+      "message": "Unable to find package Newtonsoft.Json with version (>= 13.0.1)\r\n  - Found 1 version(s) in Microsoft Visual Studio Offline Packages [ Nearest version: 9.0.1 ]",
+      "libraryId": "Newtonsoft.Json",
+      "targetGraphs": [
+        ".NETFramework,Version=v4.6.2",
+        "net6.0"
+      ]
+    }
+  ]
+}
