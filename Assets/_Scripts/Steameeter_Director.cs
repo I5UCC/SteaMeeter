@@ -98,6 +98,11 @@ public class Steameeter_Director : MonoBehaviour
     private void OnMessageReceived(BlobString address, OscMessageValues values)
     {
         string address_string = address.ToString();
+        if (address_string == "/avatar/change")
+        {
+            SetSliders();
+        }
+
         if (!Regex.IsMatch(address_string, "vm_"))
         {
             return;
@@ -234,35 +239,43 @@ public class Steameeter_Director : MonoBehaviour
     /// </summary>
     public void SetSliders()
     {
-        while (Remote.IsParametersDirty() == 1)
-        {
-            Thread.Sleep(100);
+        try {
+            while (Remote.IsParametersDirty() == 1)
+            {
+                Thread.Sleep(100);
+            }
+
+            string slidertext1 = Remote.GetTextParameter(string.Format("Strip[{0}].Label", VAIOStripIndex));
+            sliderTitleVAIO.text = slidertext1 != "" ? slidertext1 : sliderTitleVAIO.text;
+
+            string slidertext2 = Remote.GetTextParameter(string.Format("Strip[{0}].Label", AUXStripIndex));
+            sliderTitleAUX.text = slidertext2 != "" ? slidertext2 : sliderTitleAUX.text;
+
+            string slidertext3 = Remote.GetTextParameter(string.Format("Strip[{0}].Label", VAIO3StripIndex));
+            sliderTitleVAIO3.text = slidertext3 != "" ? slidertext3 : sliderTitleVAIO3.text;
+
+            string VAIO_Strip = string.Format("Strip[{0}].Gain", VAIOStripIndex);
+            string AUX_Strip = string.Format("Strip[{0}].Gain", AUXStripIndex);
+            string VAIO3_Strip = string.Format("Strip[{0}].Gain", VAIO3StripIndex);
+            float VAIO_Volume = Remote.GetParameter(VAIO_Strip);
+            float AUX_Volume = Remote.GetParameter(AUX_Strip);
+            float VAIO3_Volume = Remote.GetParameter(VAIO3_Strip);
+            sliderVAIO.value = VAIO_Volume;
+            sliderAUX.value = AUX_Volume;
+            sliderVAIO3.value = VAIO3_Volume;
+            _sender.Send("/avatar/parameters/vm_in_gain_5", (VAIO_Volume + 60) / 60);
+            _sender.Send("/avatar/parameters/vm_in_gain_6", (AUX_Volume + 60) / 60);
+            _sender.Send("/avatar/parameters/vm_in_gain_7", (VAIO3_Volume + 60) / 60);
+            Debug.Log("VAIO Volume: " + VAIO_Volume);
+            Debug.Log("AUX Volume: " + AUX_Volume);
+            Debug.Log("VAIO3 Volume: " + VAIO3_Volume);
         }
-
-        string slidertext1 = Remote.GetTextParameter(string.Format("Strip[{0}].Label", VAIOStripIndex));
-        sliderTitleVAIO.text = slidertext1 != "" ? slidertext1 : sliderTitleVAIO.text;
-
-        string slidertext2 = Remote.GetTextParameter(string.Format("Strip[{0}].Label", AUXStripIndex));
-        sliderTitleAUX.text = slidertext2 != "" ? slidertext2 : sliderTitleAUX.text;
-
-        string slidertext3 = Remote.GetTextParameter(string.Format("Strip[{0}].Label", VAIO3StripIndex));
-        sliderTitleVAIO3.text = slidertext3 != "" ? slidertext3 : sliderTitleVAIO3.text;
-
-        string VAIO_Strip = string.Format("Strip[{0}].Gain", VAIOStripIndex);
-        string AUX_Strip = string.Format("Strip[{0}].Gain", AUXStripIndex);
-        string VAIO3_Strip = string.Format("Strip[{0}].Gain", VAIO3StripIndex);
-        float VAIO_Volume = Remote.GetParameter(VAIO_Strip);
-        float AUX_Volume = Remote.GetParameter(AUX_Strip);
-        float VAIO3_Volume = Remote.GetParameter(VAIO3_Strip);
-        sliderVAIO.value = VAIO_Volume;
-        sliderAUX.value = AUX_Volume;
-        sliderVAIO3.value = VAIO3_Volume;
-        _sender.Send("/avatar/parameters/vm_in_gain_5", (VAIO_Volume + 60) / 60);
-        _sender.Send("/avatar/parameters/vm_in_gain_6", (AUX_Volume + 60) / 60);
-        _sender.Send("/avatar/parameters/vm_in_gain_7", (VAIO3_Volume + 60) / 60);
-        Debug.Log("VAIO Volume: " + VAIO_Volume);
-        Debug.Log("AUX Volume: " + AUX_Volume);
-        Debug.Log("VAIO3 Volume: " + VAIO3_Volume);
+        catch (Exception e)
+        {
+            Debug.Log($"Error setting sliders: {e.Message}");
+            Thread.Sleep(300);
+            SetSliders();
+        }
     }
 
     /// <summary>
