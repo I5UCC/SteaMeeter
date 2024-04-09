@@ -7,6 +7,7 @@ using VoiceMeeter;
 using Voicemeeter;
 using IniParser;
 using IniParser.Model;
+using System.Threading;
 
 public class Steameeter_Director : MonoBehaviour
 {
@@ -80,6 +81,11 @@ public class Steameeter_Director : MonoBehaviour
         Application.Quit();
 	}
 
+    public void OnDashboardOpen()
+    {
+        SetSliders();
+    }
+
     private void LoadConfig()
     {
         var parser = new FileIniDataParser();
@@ -124,40 +130,6 @@ public class Steameeter_Director : MonoBehaviour
     {
         Debug.Log("Loading:" + xmlpath);
         Remote.Load(xmlpath);
-
-        XmlDocument xml = new XmlDocument();
-        xml.LoadXml(GetEscapedXMLString(xmlpath));
-
-        XmlNodeList stripnodes = xml.DocumentElement.SelectNodes("VoiceMeeterParameters/Strip");
-        foreach (XmlElement item in stripnodes)
-        {
-            string dblevel = item.GetAttribute("dblevel");
-            if (dblevel != "")
-            {
-                int index = int.Parse(item.GetAttribute("index")) - 1;
-                if(index == VAIOStripIndex)
-                {
-                    sliderVAIO.value = float.Parse(dblevel);
-                }
-                else if (index == AUXStripIndex)
-                {
-                    sliderAUX.value = float.Parse(dblevel);
-                }
-                else if (index == VAIO3StripIndex)
-                {
-                    sliderVAIO3.value = float.Parse(dblevel);
-                }
-            }
-        }
-
-        string slidertext1 = xml.DocumentElement.SelectSingleNode("VoiceMeeterParameters/LabelVirtualStrip1").InnerText;
-        sliderTitleVAIO.text = slidertext1 != "" ? slidertext1 : sliderTitleVAIO.text;
-
-        string slidertext2 = xml.DocumentElement.SelectSingleNode("VoiceMeeterParameters/LabelVirtualStrip2").InnerText;
-        sliderTitleAUX.text = slidertext2 != "" ? slidertext2 : sliderTitleAUX.text;
-
-        string slidertext3 = xml.DocumentElement.SelectSingleNode("VoiceMeeterParameters/LabelVirtualStrip3").InnerText;
-        sliderTitleVAIO3.text = slidertext3 != "" ? slidertext3 : sliderTitleVAIO3.text;
     }
 
     /// <summary>
@@ -165,6 +137,11 @@ public class Steameeter_Director : MonoBehaviour
     /// </summary>
     private void SetSliders()
     {
+        while (Remote.IsParametersDirty() == 1)
+        {
+            Thread.Sleep(100);
+        }
+
         string slidertext1 = Remote.GetTextParameter(string.Format("Strip[{0}].Label", VAIOStripIndex));
         sliderTitleVAIO.text = slidertext1 != "" ? slidertext1 : sliderTitleVAIO.text;
 
@@ -174,9 +151,18 @@ public class Steameeter_Director : MonoBehaviour
         string slidertext3 = Remote.GetTextParameter(string.Format("Strip[{0}].Label", VAIO3StripIndex));
         sliderTitleVAIO3.text = slidertext3 != "" ? slidertext3 : sliderTitleVAIO3.text;
 
-        sliderVAIO.value = Remote.GetParameter(string.Format("Strip[{0}].Gain", VAIOStripIndex));
-        sliderAUX.value = Remote.GetParameter(string.Format("Strip[{0}].Gain", AUXStripIndex));
-        sliderVAIO3.value = Remote.GetParameter(string.Format("Strip[{0}].Gain", VAIO3StripIndex));
+        string VAIO_Strip = string.Format("Strip[{0}].Gain", VAIOStripIndex);
+        string AUX_Strip = string.Format("Strip[{0}].Gain", AUXStripIndex);
+        string VAIO3_Strip = string.Format("Strip[{0}].Gain", VAIO3StripIndex);
+        float VAIO_Volume = Remote.GetParameter(VAIO_Strip);
+        float AUX_Volume = Remote.GetParameter(AUX_Strip);
+        float VAIO3_Volume = Remote.GetParameter(VAIO3_Strip);
+        sliderVAIO.value = VAIO_Volume;
+        sliderAUX.value = AUX_Volume;
+        sliderVAIO3.value = VAIO3_Volume;
+        Debug.Log(VAIO_Volume);
+        Debug.Log(AUX_Volume);
+        Debug.Log(VAIO3_Volume);
     }
 
     /// <summary>
@@ -191,8 +177,8 @@ public class Steameeter_Director : MonoBehaviour
         else
         {
             Debug.Log(vrXMLPath + " not found! Continuing without it...");
-            SetSliders();
         }
+        SetSliders();
     }
     
     /// <summary>
