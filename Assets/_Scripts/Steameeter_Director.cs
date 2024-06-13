@@ -28,6 +28,8 @@ public class Steameeter_Director : MonoBehaviour
     private float incrementValue = 2;
     private float decrementValue = 2;
 
+    private RunVoicemeeterParam voicemeeterVersion = RunVoicemeeterParam.VoicemeeterPotato;
+
     private int VAIOStripIndex = 5;
     private int AUXStripIndex = 6;
     private int VAIO3StripIndex = 7;
@@ -187,8 +189,6 @@ public class Steameeter_Director : MonoBehaviour
 
     private void SetStrip(int stripIndex, float value)
     {
-        // Map float value [0, 1] to [-60, 0]
-        
         Remote.SetParameter(string.Format("Strip[{0}].Gain", stripIndex), value);
     }
 
@@ -231,12 +231,13 @@ public class Steameeter_Director : MonoBehaviour
             Debug.Log(defaultXMLPath + " not found! Continuing without it...");
         }
         _receiver.Dispose();
+        _oscQuery.Dispose();
     }
 
     public void OnSteamVRConnect()
 	{
         Debug.Log("Initializing");
-        Remote.Initialize(RunVoicemeeterParam.VoicemeeterPotato);
+        Remote.Initialize(voicemeeterVersion);
         Reset();
         initialized = true;
     }
@@ -252,6 +253,23 @@ public class Steameeter_Director : MonoBehaviour
         var parser = new FileIniDataParser();
         IniData config = parser.ReadFile(Path.GetFullPath("config.ini"));
 
+        switch (config["Settings"]["VM_Version"].ToString().ToLower())
+        {
+            case "voicemeeter":
+                voicemeeterVersion = RunVoicemeeterParam.Voicemeeter;
+                break;
+            case "banana":
+                voicemeeterVersion = RunVoicemeeterParam.VoicemeeterBanana;
+                break;
+            case "potato":
+                voicemeeterVersion = RunVoicemeeterParam.VoicemeeterPotato;
+                break;
+            default:
+                Debug.Log("Invalid Voicemeeter Version. Defaulting to Potato.");
+                voicemeeterVersion = RunVoicemeeterParam.VoicemeeterPotato;
+                break;
+        }
+
         defaultXMLPath = config["Settings"]["XMLPath_Default"].ToString();
         if (!Path.IsPathRooted(defaultXMLPath))
         {
@@ -262,6 +280,24 @@ public class Steameeter_Director : MonoBehaviour
         if (!Path.IsPathRooted(vrXMLPath))
         {
             vrXMLPath = Path.GetFullPath(vrXMLPath);
+        }
+
+        profile1XMLPath = config["Settings"]["XMLPath_Profile1"].ToString();
+        if (!Path.IsPathRooted(profile1XMLPath))
+        {
+            profile1XMLPath = Path.GetFullPath(profile1XMLPath);
+        }
+
+        profile2XMLPath = config["Settings"]["XMLPath_Profile2"].ToString();
+        if (!Path.IsPathRooted(profile2XMLPath))
+        {
+            profile2XMLPath = Path.GetFullPath(profile2XMLPath);
+        }
+
+        profile3XMLPath = config["Settings"]["XMLPath_Profile3"].ToString();
+        if (!Path.IsPathRooted(profile3XMLPath))
+        {
+            profile3XMLPath = Path.GetFullPath(profile3XMLPath);
         }
 
         incrementValue = int.Parse(config["Settings"]["IncrementValue"]);

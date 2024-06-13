@@ -64,7 +64,7 @@ public class WindowController : MonoBehaviour
     {
         winHandle = FindWindowByCaption(IntPtr.Zero, UnityEngine.Application.productName);
 
-        if(hasTrayIcon)
+        if (hasTrayIcon)
             CreateTray();
 
         HideUnityWindow();
@@ -73,11 +73,11 @@ public class WindowController : MonoBehaviour
 
     void OnEnable()
     {
-        if(hasTrayIcon)
+        if (hasTrayIcon)
             CreateTray();
     }
 
-    void OnDestroy() 
+    void OnDestroy()
     {
         DestroyTray();
     }
@@ -106,25 +106,25 @@ public class WindowController : MonoBehaviour
 
     public void DestroyTray()
     {
-        if(trayForm != null)
+        if (trayForm != null)
         {
             trayForm.Dispose();
             trayForm = null;
         }
     }
 
-    public void OnExit() 
+    public void OnExit()
     {
         UnityEngine.Application.Quit();
     }
 
     public void ShowTrayIcon()
     {
-        if(trayForm != null)
+        if (trayForm != null)
             trayForm.ShowTray();
     }
 
-    public bool HideTaskbarIcon() 
+    public bool HideTaskbarIcon()
     {
         bool res = false;
 
@@ -137,14 +137,14 @@ public class WindowController : MonoBehaviour
 
     public bool MinimizeUnityWindow()
     {
-        bool res = ShowWindow(winHandle, (uint) 6);
+        bool res = ShowWindow(winHandle, (uint)6);
         return res;
     }
 
     public bool HideUnityWindow()
     {
         bool res = false;
-        
+
         res = MinimizeUnityWindow();
         res = HideTaskbarIcon();
 
@@ -152,7 +152,7 @@ public class WindowController : MonoBehaviour
     }
 }
 
-public class TrayForm : System.Windows.Forms.Form 
+public class TrayForm : System.Windows.Forms.Form
 {
     public delegate void OnExitDel();
     public delegate void OnShowWindowDel();
@@ -174,7 +174,7 @@ public class TrayForm : System.Windows.Forms.Form
 
         trayIcon.ContextMenuStrip = trayMenu;
 
-        if(tex == null)
+        if (tex == null)
             trayIcon.Icon = new Icon(SystemIcons.Application, 40, 40);
         else
             trayIcon.Icon = Icon.FromHandle(CreateBitmap(tex).GetHicon());
@@ -186,7 +186,7 @@ public class TrayForm : System.Windows.Forms.Form
         memS.Seek(0, System.IO.SeekOrigin.Begin);
 
         Bitmap bitmap = new Bitmap(memS);
-        
+
         return bitmap;
     }
 
@@ -220,7 +220,7 @@ public class TrayForm : System.Windows.Forms.Form
 
     protected override void Dispose(bool disposing)
     {
-        if(disposing)
+        if (disposing)
             trayIcon.Dispose();
 
         base.Dispose(disposing);
