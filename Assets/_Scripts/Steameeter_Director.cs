@@ -24,7 +24,7 @@ public class Steameeter_Director : MonoBehaviour
     private string profile1XMLPath = Path.GetFullPath("profile1.xml");
     private string profile2XMLPath = Path.GetFullPath("profile2.xml");
     private string profile3XMLPath = Path.GetFullPath("profile3.xml");
-    
+
     private float incrementValue = 2;
     private float decrementValue = 2;
 
@@ -36,9 +36,9 @@ public class Steameeter_Director : MonoBehaviour
 
     public Unity_Overlay menuOverlay;
 
-	[Space(10)]
+    [Space(10)]
 
-	public Slider sliderVAIO;
+    public Slider sliderVAIO;
     public Slider sliderAUX;
     public Slider sliderVAIO3;
 
@@ -62,8 +62,8 @@ public class Steameeter_Director : MonoBehaviour
     private OscServer _receiver;
     private OscClient _sender;
 
-    void Start() 
-	{
+    void Start()
+    {
         LoadConfig();
         Start_OSC();
         if (File.Exists(MANIFESTLFILEPATH))
@@ -72,7 +72,8 @@ public class Steameeter_Director : MonoBehaviour
         }
     }
 
-    private void Start_OSC() {
+    private void Start_OSC()
+    {
         _sender = new OscClient("127.0.0.1", 9000);
         VRC.OSCQuery.IDiscovery discovery = new MeaModDiscovery();
         _receiver = OscServer.GetOrCreate(udpPort);
@@ -105,12 +106,12 @@ public class Steameeter_Director : MonoBehaviour
             SetSliders();
             return;
         }
-        
+
         address_string = address_string[19..];
 
         if (!address_string.StartsWith("sm/"))
             return;
-        
+
         address_string = address_string[3..];
 
         if (address_string == "restart")
@@ -151,23 +152,24 @@ public class Steameeter_Director : MonoBehaviour
             switch (address_string)
             {
                 case "profile/0":
-                    LoadVMXML(vrXMLPath);
+                    Reset();
                     break;
                 case "profile/1":
-                    LoadVMXML(profile1XMLPath);
+                    loadProfile1();
                     break;
                 case "profile/2":
-                    LoadVMXML(profile2XMLPath);
+                    loadProfile2();
                     break;
                 case "profile/3":
-                    LoadVMXML(profile3XMLPath);
+                    loadProfile3();
                     break;
             }
             SetSliders();
             return;
         }
 
-        if (address_string.StartsWith("gain/")) {
+        if (address_string.StartsWith("gain/"))
+        {
             float value = values.ReadFloatElement(0);
             value = (value * 60) - 60;
 
@@ -195,12 +197,12 @@ public class Steameeter_Director : MonoBehaviour
     public static IPAddress GetLocalIPAddress()
     {
         // Android can always serve on the non-loopback address
-    #if UNITY_ANDROID
+#if UNITY_ANDROID
         return GetLocalIPAddressNonLoopback();
-    #else
+#else
         // Windows can only serve TCP on the loopback address, but can serve UDP on the non-loopback address
         return IPAddress.Loopback;
-    #endif
+#endif
     }
 
     public static IPAddress GetLocalIPAddressNonLoopback()
@@ -219,8 +221,8 @@ public class Steameeter_Director : MonoBehaviour
         return null;
     }
 
-	public void OnApplicationQuit()
-	{
+    public void OnApplicationQuit()
+    {
         if (initialized && File.Exists(defaultXMLPath))
         {
             Debug.Log("Loading:" + defaultXMLPath);
@@ -235,18 +237,18 @@ public class Steameeter_Director : MonoBehaviour
     }
 
     public void OnSteamVRConnect()
-	{
+    {
         Debug.Log("Initializing");
         Remote.Initialize(voicemeeterVersion);
         Reset();
         initialized = true;
     }
 
-	public void OnSteamVRDisconnect()
-	{
-		Debug.Log("Quitting!");
+    public void OnSteamVRDisconnect()
+    {
+        Debug.Log("Quitting!");
         Application.Quit();
-	}
+    }
 
     private void LoadConfig()
     {
@@ -323,7 +325,8 @@ public class Steameeter_Director : MonoBehaviour
     /// </summary>
     public void SetSliders()
     {
-        try {
+        try
+        {
             while (Remote.IsParametersDirty() == 1)
             {
                 Thread.Sleep(100);
@@ -377,11 +380,60 @@ public class Steameeter_Director : MonoBehaviour
         }
         SetSliders();
     }
-    
+
+    /// <summary>
+    /// Sets profile 1
+    /// </summary>
+    public void loadProfile1()
+    {
+        if (File.Exists(profile1XMLPath))
+        {
+            LoadVMXML(profile1XMLPath);
+        }
+        else
+        {
+            Debug.Log(profile1XMLPath + " not found! Continuing without it...");
+        }
+        SetSliders();
+    }
+
+    /// <summary>
+    /// Sets profile 2
+    /// </summary>
+    public void loadProfile2()
+    {
+        if (File.Exists(profile2XMLPath))
+        {
+            LoadVMXML(profile2XMLPath);
+        }
+        else
+        {
+            Debug.Log(profile2XMLPath + " not found! Continuing without it...");
+        }
+        SetSliders();
+    }
+
+    /// <summary>
+    /// Sets profile 3
+    /// </summary>
+    public void loadProfile3()
+    {
+        if (File.Exists(profile3XMLPath))
+        {
+            LoadVMXML(profile3XMLPath);
+        }
+        else
+        {
+            Debug.Log(profile3XMLPath + " not found! Continuing without it...");
+        }
+        SetSliders();
+    }
+
     /// <summary>
     /// Restarts the Voicemeeter Audio Engine
     /// </summary>
-    public void Restart() {
+    public void Restart()
+    {
         Remote.Restart();
         Thread.Sleep(500);
         SetSliders();

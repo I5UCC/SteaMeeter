@@ -215,8 +215,8 @@ MonoBehaviour:
     y: 0
     width: 1564
     height: 964
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 202, y: 221}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 12}
   m_Panes:
   - {fileID: 12}
@@ -741,7 +741,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 12ebffff62ebffff44ecffff58f5ffffa8f5ffffacf6ffff2cfbffff6a4d0000f65500000e560000405600004a56000062570000
+      m_ExpandedIDs: 2cfbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1007,23 +1007,23 @@ MonoBehaviour:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 2a4f0000
-    m_LastClickedID: 20266
-    m_ExpandedIDs: 000000002a4f00002e4f0000304f0000324f0000344f0000364f0000384f00003a4f000000ca9a3bffffff7f
+    m_SelectedIDs: 2e4f0000
+    m_LastClickedID: 20270
+    m_ExpandedIDs: 000000002e4f0000304f0000324f0000344f0000364f0000384f00003a4f00003c4f000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: OVRLay
-      m_OriginalName: OVRLay
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 20268
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 10}
     m_SearchString: 
@@ -1037,7 +1037,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000002a4f00002c4f00002e4f0000304f0000324f0000344f0000364f0000384f00003a4f0000
+    m_ExpandedIDs: 000000002e4f0000304f0000324f0000344f0000364f0000384f00003a4f00003c4f0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
