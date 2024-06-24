@@ -25,9 +25,6 @@ public class Steameeter_Director : MonoBehaviour
     private string profile2XMLPath = Path.GetFullPath("profile2.xml");
     private string profile3XMLPath = Path.GetFullPath("profile3.xml");
 
-    private float incrementValue = 2;
-    private float decrementValue = 2;
-
     private RunVoicemeeterParam voicemeeterVersion = RunVoicemeeterParam.VoicemeeterPotato;
 
     private int VAIOStripIndex = 5;
@@ -66,10 +63,9 @@ public class Steameeter_Director : MonoBehaviour
     {
         LoadConfig();
         Start_OSC();
-        if (File.Exists(MANIFESTLFILEPATH))
-        {
-            OpenVR.Applications.AddApplicationManifest(MANIFESTLFILEPATH, false);
-        }
+
+        Remote.Initialize(voicemeeterVersion);
+        SetSliders();
     }
 
     private void Start_OSC()
@@ -238,10 +234,12 @@ public class Steameeter_Director : MonoBehaviour
 
     public void OnSteamVRConnect()
     {
-        Debug.Log("Initializing");
-        Remote.Initialize(voicemeeterVersion);
         Reset();
         initialized = true;
+        if (File.Exists(MANIFESTLFILEPATH))
+        {
+            OpenVR.Applications.AddApplicationManifest(MANIFESTLFILEPATH, false);
+        }
     }
 
     public void OnSteamVRDisconnect()
@@ -302,9 +300,6 @@ public class Steameeter_Director : MonoBehaviour
             profile3XMLPath = Path.GetFullPath(profile3XMLPath);
         }
 
-        incrementValue = int.Parse(config["Settings"]["IncrementValue"]);
-        decrementValue = int.Parse(config["Settings"]["DecrementValue"]);
-
         VAIOStripIndex = int.Parse(config["Settings"]["StripIndex_VAIO"]);
         AUXStripIndex = int.Parse(config["Settings"]["StripIndex_AUX"]);
         VAIO3StripIndex = int.Parse(config["Settings"]["StripIndex_VAIO3"]);
@@ -356,6 +351,22 @@ public class Steameeter_Director : MonoBehaviour
             Debug.Log("VAIO Volume: " + VAIO_Volume);
             Debug.Log("AUX Volume: " + AUX_Volume);
             Debug.Log("VAIO3 Volume: " + VAIO3_Volume);
+
+            Button[] VAIObuttons = sliderVAIO.gameObject.GetComponentsInChildren<Button>();
+            foreach (Button b in VAIObuttons)
+            {
+                b.transform.Find("State").gameObject.SetActive(Remote.GetParameter(string.Format("Strip[{0}].{1}", VAIOStripIndex, b.name)) == 1);
+            }
+            Button[] AUXbuttons = sliderAUX.gameObject.GetComponentsInChildren<Button>();
+            foreach (Button b in AUXbuttons)
+            {
+                b.transform.Find("State").gameObject.SetActive(Remote.GetParameter(string.Format("Strip[{0}].{1}", AUXStripIndex, b.name)) == 1);
+            }
+            Button[] VAIO3buttons = sliderVAIO3.gameObject.GetComponentsInChildren<Button>();
+            foreach (Button b in VAIO3buttons)
+            {
+                b.transform.Find("State").gameObject.SetActive(Remote.GetParameter(string.Format("Strip[{0}].{1}", VAIO3StripIndex, b.name)) == 1);
+            }
         }
         catch (Exception e)
         {
@@ -363,6 +374,21 @@ public class Steameeter_Director : MonoBehaviour
             Thread.Sleep(300);
             SetSliders();
         }
+    }
+
+    public void SetStripProperty(Button button)
+    {
+        string stripidx = button.GetComponentInParent<Slider>().name;
+        Transform state = button.transform.Find("State");
+        state.gameObject.SetActive(!state.gameObject.activeSelf);
+        string tmp = string.Format("Strip[{0}].{1}", stripidx, button.name);
+        Remote.SetParameter(tmp, state.gameObject.activeSelf ? 1 : 0);
+    }
+
+    public void SetStripValue(Slider slider)
+    {
+        Remote.SetParameter(string.Format("Strip[{0}].Gain", slider.name), slider.value);
+        slider.transform.Find("Handle Slide Area/Handle/HandleValue").GetComponent<Text>().text = slider.value.ToString("n1");
     }
 
     /// <summary>
@@ -438,45 +464,4 @@ public class Steameeter_Director : MonoBehaviour
         Thread.Sleep(500);
         SetSliders();
     }
-    /// <summary>
-    /// Sets VAIO Volume Remotely.
-    /// </summary>
-    /// <param name="value">value to set</param>
-    public void SetVAIOVolume(float value)
-    {
-        Remote.SetParameter(string.Format("Strip[{0}].Gain", VAIOStripIndex), value);
-        sliderValueVAIO.text = value.ToString("n1");
-    }
-
-    /// <summary>
-    /// Sets AUX Volume Remotely.
-    /// </summary>
-    /// <param name="value">value to set</param>
-    public void SetAUXVolume(float value)
-    {
-        Remote.SetParameter(string.Format("Strip[{0}].Gain", AUXStripIndex), value);
-        sliderValueAUX.text = value.ToString("n1");
-    }
-
-    /// <summary>
-    /// Sets VAIO3 Volume Remotely.
-    /// </summary>
-    /// <param name="value">value to set</param>
-    public void SetVAIO3Volume(float value)
-    {
-        Remote.SetParameter(string.Format("Strip[{0}].Gain", VAIO3StripIndex), value);
-        sliderValueVAIO3.text = value.ToString("n1");
-    }
-
-    public void IncrementVAIOSlider() => sliderVAIO.value += incrementValue;
-
-    public void IncrementAUXSlider() => sliderAUX.value += incrementValue;
-
-    public void IncrementVAIO3Slider() => sliderVAIO3.value += incrementValue;
-
-    public void DecrementVAIOSlider() => sliderVAIO.value -= decrementValue;
-
-    public void DecrementAUXSlider() => sliderAUX.value -= decrementValue;
-
-    public void DecrementVAIO3Slider() => sliderVAIO3.value -= decrementValue;
 }
