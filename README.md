@@ -9,7 +9,7 @@ This program will load the XML-File ***vr.xml*** on SteamVR startup and when Ste
 
 ### [<img src="https://assets-global.website-files.com/6257adef93867e50d84d30e2/636e0a6ca814282eca7172c6_icon_clyde_white_RGB.svg"  width="20" height="20"> Discord Support Server](https://discord.gg/rqcWHje3hn)
 
-![grafik](https://github.com/I5UCC/SteaMeeter/assets/43730681/ba4a2a91-36fc-4a13-8e3f-41c8072892f5)
+![grafik](https://github.com/I5UCC/SteaMeeter/assets/43730681/917f5910-ec5c-4911-b620-df4f9700eacf)
 
 Currently only supports control of the Virtual inputs, this may expand later.
 
@@ -24,6 +24,9 @@ Will listen to following endpoints:
 | /avatar/parameters/sm/gain/VAIO | Control gain of VAIO virtual input |
 | /avatar/parameters/sm/gain/AUX | Control gain of AUX virtual input |
 | /avatar/parameters/sm/gain/VAIO3 | Control gain of VAIO3 virtual input |
+| /avatar/parameters/sm/strip/VAIO/{A1,A2,A3,A4,A5,B1,B2,B3,Mute} | Control the individual Outputs of VAIO virtual input |
+| /avatar/parameters/sm/strip/AUX/{A1,A2,A3,A4,A5,B1,B2,B3,Mute} | Control the individual Outputs of AUX virtual input |
+| /avatar/parameters/sm/strip/VAIO3/{A1,A2,A3,A4,A5,B1,B2,B3,Mute} | Control the individual Outputs of VAIO3 virtual input |
 | /avatar/parameters/sm/restart | Restarts the Audio Engine and fetches<br> current audio Settings to Dashboard/OSC |
 | /avatar/parameters/sm/profile/0  | Load vr.xml |
 | /avatar/parameters/sm/profile/1 | Load profile1.xml |
