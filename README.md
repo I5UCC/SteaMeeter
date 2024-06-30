@@ -24,9 +24,9 @@ Will listen to following endpoints:
 | /avatar/parameters/sm/gain/VAIO | Control gain of VAIO virtual input |
 | /avatar/parameters/sm/gain/AUX | Control gain of AUX virtual input |
 | /avatar/parameters/sm/gain/VAIO3 | Control gain of VAIO3 virtual input |
-| /avatar/parameters/sm/strip/VAIO/{A1,A2,A3,A4,A5,B1,B2,B3,Mute} | Control the individual Outputs of VAIO virtual input |
-| /avatar/parameters/sm/strip/AUX/{A1,A2,A3,A4,A5,B1,B2,B3,Mute} | Control the individual Outputs of AUX virtual input |
-| /avatar/parameters/sm/strip/VAIO3/{A1,A2,A3,A4,A5,B1,B2,B3,Mute} | Control the individual Outputs of VAIO3 virtual input |
+| /avatar/parameters/sm/strip/VAIO/{A1,A2,A3,A4,A5,B1,B2,B3,Mute, ...} | Control the individual Outputs of VAIO virtual input |
+| /avatar/parameters/sm/strip/AUX/{A1,A2,A3,A4,A5,B1,B2,B3,Mute, ...} | Control the individual Outputs of AUX virtual input |
+| /avatar/parameters/sm/strip/VAIO3/{A1,A2,A3,A4,A5,B1,B2,B3,Mute, ...} | Control the individual Outputs of VAIO3 virtual input |
 | /avatar/parameters/sm/restart | Restarts the Audio Engine and fetches<br> current audio Settings to Dashboard/OSC |
 | /avatar/parameters/sm/profile/0  | Load vr.xml |
 | /avatar/parameters/sm/profile/1 | Load profile1.xml |
