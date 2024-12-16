@@ -36,9 +36,6 @@ Will listen to following endpoints:
 | /avatar/parameters/sm/media/previous  | Media button Previous |
 | /avatar/parameters/sm/media/playpause  | Media button Play/Pause |
 
-> [!NOTE]
-> Don't forget to reset your OSC Config when adding to an existing Avatar.
-
 # Credit
 [Otter-Co's](https://github.com/Otter-Co) for [Turnsignal](https://github.com/Otter-Co/TurnSignal). Studying their Project made this alot easier. </br>
 [benotter](https://github.com/benotter) for [OVRLay](https://github.com/benotter/OVRLay).</br>
